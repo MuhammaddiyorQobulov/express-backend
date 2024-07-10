@@ -17,7 +17,7 @@ class AuthController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ message: "Registration error", errors });
+        return res.status(400).json({ message: "Registration errorrrr", errors });
       }
       const { username, password, confirm } = req.body;
       const condidate = await User.findOne({ username });
