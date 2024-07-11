@@ -7,6 +7,10 @@ const Type = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
 });
 
 export default mongoose.model("Type", Type);

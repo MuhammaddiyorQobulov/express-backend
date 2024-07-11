@@ -12,7 +12,7 @@ export const routers = [
     router: productsRouter,
   },
   {
-    path: "/api/type",
+    path: "/api/types",
     router: typeRouter,
   },
 ];

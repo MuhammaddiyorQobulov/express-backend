@@ -5,7 +5,11 @@ import Products from "./Products.js";
 class ProductsController {
   async getProducts(req, res) {
     try {
-      const products = await Products.find();
+      const { type, title } = req.body;
+      const products = await Products.find({
+        ...(type && { type }),
+        ...(title && { title }),
+      });
       res.json(products);
     } catch (e) {
       console.log(e.message);
@@ -40,8 +44,7 @@ class ProductsController {
   }
   async deleteProduct(req, res) {
     try {
-      const { id } = req.body;
-      const product = await Products.findByIdAndDelete(id);
+      const product = await Products.findByIdAndDelete(req.params.id);
       res.json(product);
     } catch (e) {
       console.log(e.message);
@@ -64,17 +67,6 @@ class ProductsController {
       const { id } = req.body;
       const product = await Products.findById(id);
       res.json(product);
-    } catch (e) {
-      console.log(e.message);
-      res.status(400).json({ message: "Error while getting" });
-    }
-  }
-
-  async getProductsByType(req, res) {
-    try {
-      const { type } = req.body;
-      const products = await Products.find({ type });
-      res.json(products);
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Error while getting" });
