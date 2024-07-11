@@ -3,6 +3,11 @@ import fileService from "./fileService.js";
 import Products from "./Products.js";
 
 class ProductsController {
+  async getOne(req, res) {
+    const { id } = req.params;
+    const product = await Products.findById(id);
+    res.json(product);
+  }
   async getProducts(req, res) {
     try {
       const { type, title } = req.body;
