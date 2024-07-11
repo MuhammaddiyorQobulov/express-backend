@@ -5,7 +5,6 @@ import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import config from "./config.js";
 const generateAccessToken = (id, roles) => {
-  console.log(config);
   const payload = {
     id,
     roles,
