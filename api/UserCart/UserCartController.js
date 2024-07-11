@@ -55,5 +55,21 @@ class UserCartController {
     await cart.save();
     res.json(cart);
   }
+
+  async removeFromCart(req, res) {
+    const { userId } = req.params;
+    const { productId } = req.body;
+    const cart = await UserCart.findOne({ userId });
+    const { price, quantity } = cart.products.find((i) => i._id == productId);
+
+    const updatedCart = await UserCart.findOneAndUpdate(
+      { userId },
+      {
+        $pull: { products: { _id: productId } },
+        $inc: { total: -price * quantity },
+      }
+    );
+    res.json(updatedCart);
+  }
 }
 export default new UserCartController();

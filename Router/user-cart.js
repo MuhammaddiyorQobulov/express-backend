@@ -5,4 +5,5 @@ const userCartRouter = new Router();
 
 userCartRouter.get("/:userId", UserCartController.getCart);
 userCartRouter.post("/:userId", UserCartController.addToCart);
+userCartRouter.put("/:userId", UserCartController.removeFromCart);
 export default userCartRouter;
