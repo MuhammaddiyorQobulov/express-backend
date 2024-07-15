@@ -3,13 +3,13 @@ import UserCart from "./UserCart.js";
 
 class UserCartController {
   async getCart(req, res) {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const cart = await UserCart.findOne({ userId });
     res.json(cart);
   }
-
+  
   async addToCart(req, res) {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const { productId, quantity } = req.body;
     const totalCost = (products) => {
       let total = 0;
@@ -57,7 +57,7 @@ class UserCartController {
   }
 
   async removeFromCart(req, res) {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const { productId } = req.body;
     const cart = await UserCart.findOne({ userId });
     const { price, quantity } = cart.products.find((i) => i._id == productId);
