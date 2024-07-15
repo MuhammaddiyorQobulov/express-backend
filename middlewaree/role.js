@@ -8,7 +8,7 @@ const roleMiddleWaree = (roles) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
       if (!token) {
-        return res.status(403).json("No access");
+        return res.status(401).json("No access");
       }
       const { roles: userRoles } = jwt.verify(token, config.secret);
       let hasRoles = false;
@@ -18,11 +18,11 @@ const roleMiddleWaree = (roles) => {
         }
       });
       if (!hasRoles) {
-        return res.status(403).json("No access");
+        return res.status(401).json("No access");
       }
       next();
     } catch (e) {
-      return res.status(403).json("No access");
+      return res.status(401).json("No access");
     }
   };
 };

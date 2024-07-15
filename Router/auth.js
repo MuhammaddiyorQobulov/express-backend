@@ -22,5 +22,6 @@ authRouter.get(
   roleMiddleWaree(["ADMIN", "USER"]),
   AuthController.getUsers
 );
+authRouter.get("/user", authMiddleWaree, AuthController.CheckIsLogin);
 
 export default authRouter;
