@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import config from "./config.js";
+import fileService from "../UploadImage/fileService.js";
 const generateAccessToken = (id, roles) => {
   const payload = {
     id,
@@ -14,9 +15,12 @@ const generateAccessToken = (id, roles) => {
 class AuthController {
   async registration(req, res) {
     try {
+      const fileName = req.files ? fileService.saveFile(req.files.avatar) : "";
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ message: "Registration errorrrr", errors });
+        return res
+          .status(400)
+          .json({ message: "Registration errorrrr", errors });
       }
       const { username, password, confirm } = req.body;
       const condidate = await User.findOne({ username });
@@ -38,13 +42,13 @@ class AuthController {
         username,
         password: hashPassword,
         roles: [userRole.value],
+        avatar: fileName,
       });
       const token = generateAccessToken(user._id, user.roles);
       await user.save();
       return res.json({ token });
-    } catch (e) {
-      console.log(e.message);
-      res.status(400).json({ message: "Registration error" });
+    } catch (err) {
+      res.status(400).json(err.message);
     }
   }
   async login(req, res) {

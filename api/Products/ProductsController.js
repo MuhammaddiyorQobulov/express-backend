@@ -1,5 +1,5 @@
 import Type from "../ProductType/Type.js";
-import fileService from "./fileService.js";
+import fileService from "../UploadImage/fileService.js";
 import Products from "./Products.js";
 
 class ProductsController {

@@ -13,6 +13,9 @@ const User = new mongoose.Schema({
   confirm: {
     type: String,
   },
+  avatar: {
+    type: String
+  },
   roles: [{ type: String, ref: "Role" }],
 });
 
