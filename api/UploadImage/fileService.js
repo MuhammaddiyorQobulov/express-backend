@@ -8,7 +8,7 @@ class FileService {
       file.mv(filePath);
       return fileName;
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 }
