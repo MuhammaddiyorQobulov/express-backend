@@ -7,7 +7,7 @@ class UserCartController {
     const cart = await UserCart.findOne({ userId });
     res.json(cart);
   }
-  
+
   async addToCart(req, res) {
     const userId = req.user.id;
     const { productId, quantity } = req.body;
@@ -26,8 +26,8 @@ class UserCartController {
         userId,
         products: [
           {
-            product,
             quantity,
+            ...product,
           },
         ],
         total: product.price * quantity,

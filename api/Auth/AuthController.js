@@ -45,7 +45,7 @@ class AuthController {
         avatar: fileName,
       });
       const token = generateAccessToken(user._id, user.roles);
-      // await user.save();
+      await user.save();
       return res.json({ token });
     } catch (err) {
       res.status(400).json(err.message);

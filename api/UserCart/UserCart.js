@@ -5,7 +5,6 @@ const UserCart = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
-    unique: true,
     ref: "User",
   },
   products: [
@@ -18,7 +17,6 @@ const UserCart = new mongoose.Schema({
       },
     },
   ],
-
   total: {
     type: Number,
     default: 0,

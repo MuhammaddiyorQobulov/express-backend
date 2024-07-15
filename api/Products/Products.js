@@ -9,7 +9,7 @@ const Products = new mongoose.Schema({
   },
   description: { type: String, default: "-" },
   type: { type: String, default: "MEAL", ref: "Type" },
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now() },
 });
 
 export default mongoose.model("Products", Products);

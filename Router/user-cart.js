@@ -5,6 +5,10 @@ import authMiddleWaree from "../middlewaree/auth.js";
 const userCartRouter = new Router();
 
 userCartRouter.get("/", authMiddleWaree, UserCartController.getCart);
-userCartRouter.post("/", authMiddleWaree, UserCartController.addToCart);
+userCartRouter.post(
+  "/",
+  authMiddleWaree,
+  UserCartController.addToCart
+);
 userCartRouter.put("/", authMiddleWaree, UserCartController.removeFromCart);
 export default userCartRouter;
