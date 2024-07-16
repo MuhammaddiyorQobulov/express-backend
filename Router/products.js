@@ -9,7 +9,7 @@ productsRouter.get("/", authMiddleWaree, ProductsController.getProducts);
 productsRouter.post(
   "/",
   authMiddleWaree,
-  roleMiddleWaree(["ADMIN"]),
+  roleMiddleWaree(["ADMIN", "USER"]),
   ProductsController.createProduct
 );
 productsRouter.delete(
@@ -25,5 +25,4 @@ productsRouter.put(
   ProductsController.updateProduct
 );
 productsRouter.get("/:id", ProductsController.getOne);
-
 export default productsRouter;

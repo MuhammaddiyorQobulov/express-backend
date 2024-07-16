@@ -10,9 +10,9 @@ class ProductsController {
   }
   async getProducts(req, res) {
     try {
-      const { type, title } = req.body;
+      const { type, title } = req.query;
       const products = await Products.find({
-        ...(type && { type }),
+        ...(type && type !== "all" && { type }),
         ...(title && { title }),
       });
       res.json(products);
