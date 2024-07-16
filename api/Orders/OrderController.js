@@ -9,8 +9,7 @@ class OrderController {
 
     const errors = validationResult(req);
     const cart = await UserCart.findOne({ userId });
-
-    if (cart.products.length === 0) {
+    if (!cart || cart.products.length === 0) {
       return res.status(400).json({ message: "Cart is empty" });
     }
     if (!errors.isEmpty()) {
@@ -59,6 +58,15 @@ class OrderController {
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Error while creating status" });
+    }
+  }
+  async getAllStatus(req, res) {
+    try {
+      const statuses = await OrderStatus.find();
+      res.json(statuses);
+    } catch (err) {
+      console.log(err.message);
+      res.status(400).json({ message: "Error while getting statuses" });
     }
   }
   async getUserOrders(req, res) {
