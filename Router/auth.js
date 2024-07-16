@@ -19,9 +19,15 @@ authRouter.post(
 authRouter.post("/login", AuthController.login);
 authRouter.get(
   "/users",
-  roleMiddleWaree(["ADMIN", "USER"]),
+  authMiddleWaree,
+  roleMiddleWaree(["ADMIN"]),
   AuthController.getUsers
 );
 authRouter.get("/user", authMiddleWaree, AuthController.CheckIsLogin);
-
+authRouter.put(
+  "/user/:id",
+  authMiddleWaree,
+  roleMiddleWaree(["ADMIN"]),
+  AuthController.UpdateUser
+);
 export default authRouter;

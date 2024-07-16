@@ -14,9 +14,12 @@ const User = new mongoose.Schema({
     type: String,
   },
   avatar: {
-    type: String
+    type: String,
   },
   roles: [{ type: String, ref: "Role" }],
+  phone: {
+    type: String,
+  },
 });
 
 export default mongoose.model("User", User);
