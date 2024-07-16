@@ -26,6 +26,7 @@ class OrderController {
         total: cart.total,
       });
       await order.save();
+      await UserCart.findOneAndDelete({ userId });
       res.json(order);
     } catch (e) {
       console.log(e.message);
@@ -41,18 +42,6 @@ class OrderController {
       res.status(400).json({ message: "Error while getting" });
     }
   }
-
-  async getOneOrder(req, res) {
-    try {
-      const { id } = req.body;
-      const order = await Order.findById(id);
-      res.json(order);
-    } catch (e) {
-      console.log(e.message);
-      res.status(400).json({ message: "Error while getting" });
-    }
-  }
-
   async updateOrder(req, res) {
     try {
       const order = await Order.findByIdAndUpdate(req.params.id, req.body);
@@ -62,7 +51,6 @@ class OrderController {
       res.status(400).json({ message: "Error while updating" });
     }
   }
-
   async createStatus(req, res) {
     try {
       const status = new OrderStatus(req.body);
@@ -70,7 +58,17 @@ class OrderController {
       res.json(status);
     } catch (e) {
       console.log(e.message);
-      res.status(400).json({ message: "Error while creating" });
+      res.status(400).json({ message: "Error while creating status" });
+    }
+  }
+  async getUserOrders(req, res) {
+    try {
+      const id = req.user.id;
+      const orders = await Order.find({ userId: id });
+      res.json(orders);
+    } catch (e) {
+      console.log(e.message);
+      res.status(400).json({ message: "Error while getting" });
     }
   }
 }

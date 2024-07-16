@@ -15,7 +15,7 @@ orderRouter.post(
   OrderController.createOrder
 );
 orderRouter.get("/", OrderController.getOrders);
-orderRouter.get("/:id", OrderController.getOneOrder);
 orderRouter.put("/:id", OrderController.updateOrder);
 orderRouter.post("/status", OrderController.createStatus);
+orderRouter.get("/user-orders", authMiddleWaree, OrderController.getUserOrders);
 export default orderRouter;
