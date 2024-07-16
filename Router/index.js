@@ -2,6 +2,7 @@ import authRouter from "./auth.js";
 import productsRouter from "./products.js";
 import typeRouter from "./type.js";
 import userCartRouter from "./user-cart.js";
+import orderRouter from "./order.js";
 export const routers = [
   {
     path: "/api/auth",
@@ -18,5 +19,9 @@ export const routers = [
   {
     path: "/api/user-cart",
     router: userCartRouter,
+  },
+  {
+    path: "/api/orders",
+    router: orderRouter,
   },
 ];

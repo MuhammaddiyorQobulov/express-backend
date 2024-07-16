@@ -20,7 +20,7 @@ class AuthController {
       if (!errors.isEmpty()) {
         return res
           .status(400)
-          .json({ message: "Registration errorrrr", errors });
+          .json({ message: "Registration error", errors });
       }
       const { username, password, confirm } = req.body;
       const condidate = await User.findOne({ username });

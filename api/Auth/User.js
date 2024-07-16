@@ -16,7 +16,7 @@ const User = new mongoose.Schema({
   avatar: {
     type: String,
   },
-  roles: [{ type: String, ref: "Role" }],
+  roles: [{ type: String, ref: "Role", enum: ["ADMIN", "USER", "DELIVE"] }],
   phone: {
     type: String,
   },
