@@ -15,7 +15,7 @@ productsRouter.post(
 productsRouter.delete(
   "/:id",
   authMiddleWaree,
-  roleMiddleWaree(["ADMIN"]),
+  roleMiddleWaree(["ADMIN", "USER"]),
   ProductsController.deleteProduct
 );
 productsRouter.put(
