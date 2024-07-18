@@ -17,6 +17,7 @@ authRouter.post(
   AuthController.registration
 );
 authRouter.post("/login", AuthController.login);
+authRouter.post("/role", AuthController.createRole);
 authRouter.get(
   "/users",
   authMiddleWaree,

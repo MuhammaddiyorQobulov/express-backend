@@ -18,7 +18,7 @@ class TypeController {
       res.json(type);
     } catch (e) {
       console.log(e.message);
-      res.status(400).json({ message: "Error while creating" });
+      res.status(400).json({ message: e.message });
     }
   }
 }

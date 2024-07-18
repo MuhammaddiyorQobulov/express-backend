@@ -16,7 +16,7 @@ const Products = new mongoose.Schema({
       "MEAL",
       "DRINK",
       "PIZZA",
-      "SWEET",
+      "DESERT",
       "SNACK",
       "SALAD",
       "OTHER",

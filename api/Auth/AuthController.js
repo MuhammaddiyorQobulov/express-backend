@@ -12,15 +12,14 @@ const generateAccessToken = (id, roles) => {
   };
   return jwt.sign(payload, config.secret, { expiresIn: "1h" });
 };
+
 class AuthController {
   async registration(req, res) {
     try {
       const fileName = req.files ? fileService.saveFile(req.files.avatar) : "";
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res
-          .status(400)
-          .json({ message: "Registration error", errors });
+        return res.status(400).json({ message: "Registration error", errors });
       }
       const { username, password, confirm } = req.body;
       const condidate = await User.findOne({ username });
@@ -63,7 +62,7 @@ class AuthController {
         return res.status(400).json({ message: "Wrong password" });
       }
       const token = generateAccessToken(user._id, user.roles);
-      return res.json({ token });
+      return res.json({ token, message: "Muvafaqqiyatli kirish" });
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Login error" });
@@ -95,6 +94,16 @@ class AuthController {
     } catch (e) {
       console.log(e.message);
       res.status(404).json({ message: "User not found" });
+    }
+  }
+  async createRole(req, res) {
+    try {
+      const role = new Role(req.body);
+      await role.save();
+      res.json(role);
+    } catch (e) {
+      console.log(e.message);
+      res.status(400).json({ message: "Error while creating" });
     }
   }
 }
