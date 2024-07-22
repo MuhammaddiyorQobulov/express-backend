@@ -20,7 +20,7 @@ class ProductsController {
 
   async createProduct(req, res) {
     try {
-      const fileName = fileService.saveFile(req.files.picture);
+      const fileName = fileService.saveFile(req.files?.picture);
       const { title, price, description, type } = req.body;
       const FoodType = await Type.findOne({ type });
       if (!FoodType) {
@@ -43,6 +43,22 @@ class ProductsController {
       res.status(400).json({ message: "Error while creating" });
     }
   }
+
+  async updateProduct(req, res) {
+    try {
+      const id = req.params.id;
+      const fileName = fileService.saveFile(req.files?.picture);
+      const product = await Products.findByIdAndUpdate(
+        id,
+        req.files ? { ...req.body, imgUrl: fileName } : req.body
+      );
+      res.json(product);
+    } catch (e) {
+      console.log(e.message);
+      res.status(400).json({ message: "Error while updating" });
+    }
+  }
+
   async deleteProduct(req, res) {
     try {
       const product = await Products.findByIdAndDelete(req.params.id);
@@ -52,17 +68,6 @@ class ProductsController {
       res.status(400).json({ message: "Error while deleting" });
     }
   }
-
-  async updateProduct(req, res) {
-    try {
-      const product = await Products.findByIdAndUpdate(id, req.body);
-      res.json(product);
-    } catch (e) {
-      console.log(e.message);
-      res.status(400).json({ message: "Error while updating" });
-    }
-  }
-
   async getOneProduct(req, res) {
     try {
       const { id } = req.body;

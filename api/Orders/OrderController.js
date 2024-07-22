@@ -34,7 +34,8 @@ class OrderController {
   }
   async getOrders(req, res) {
     try {
-      const orders = await Order.find();
+      const filter = req.body;
+      const orders = await Order.find({ ...filter });
       res.json(orders);
     } catch (e) {
       console.log(e.message);

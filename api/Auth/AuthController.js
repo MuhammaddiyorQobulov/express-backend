@@ -77,6 +77,15 @@ class AuthController {
       res.status(400).json({ message: "Getusers error" });
     }
   }
+  async getUserById(req, res) {
+    try {
+      const user = await User.findById(req.params.id);
+      res.json(user);
+    } catch (e) {
+      console.log(e.message);
+      res.status(404).json({ message: "User not found" });
+    }
+  }
   async CheckIsLogin(req, res) {
     try {
       const user = await User.findById(req.user.id);
@@ -86,7 +95,6 @@ class AuthController {
       res.status(404).json({ message: "User not found" });
     }
   }
-
   async UpdateUser(req, res) {
     try {
       const user = await User.findByIdAndUpdate(req.params.id, req.body);
@@ -104,6 +112,15 @@ class AuthController {
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Error while creating" });
+    }
+  }
+  async deleteUser(req, res) {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      res.json(user);
+    } catch (e) {
+      console.log(e.message);
+      res.status(404).json({ message: "User not found" });
     }
   }
 }

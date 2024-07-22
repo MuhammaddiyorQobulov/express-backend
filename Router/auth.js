@@ -19,14 +19,26 @@ authRouter.post(
 authRouter.post("/login", AuthController.login);
 authRouter.post("/role", AuthController.createRole);
 authRouter.get(
+  "/users/:id",
+  authMiddleWaree,
+  roleMiddleWaree(["ADMIN"]),
+  AuthController.getUserById
+);
+authRouter.get(
   "/users",
   authMiddleWaree,
   roleMiddleWaree(["ADMIN"]),
   AuthController.getUsers
 );
+authRouter.delete(
+  "/users/:id",
+  authMiddleWaree,
+  roleMiddleWaree(["ADMIN"]),
+  AuthController.deleteUser
+);
 authRouter.get("/user", authMiddleWaree, AuthController.CheckIsLogin);
 authRouter.put(
-  "/user/:id",
+  "/users/:id",
   authMiddleWaree,
   roleMiddleWaree(["ADMIN"]),
   AuthController.UpdateUser

@@ -11,7 +11,7 @@ const OrderStatus = new mongoose.Schema({
       "IN_PROCESS",
       "DELIVERED",
       "RETURNED",
-      "CANCELLED",
+      "CANCELED",
       "DELIVERING",
     ],
   },
