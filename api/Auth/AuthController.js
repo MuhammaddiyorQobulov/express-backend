@@ -21,7 +21,7 @@ class AuthController {
       if (!errors.isEmpty()) {
         return res.status(400).json({ message: "Registration error", errors });
       }
-      const { username, password, confirm } = req.body;
+      const { username, password, confirm, phone } = req.body;
       const condidate = await User.findOne({ username });
 
       if (condidate) {
@@ -42,6 +42,7 @@ class AuthController {
         password: hashPassword,
         roles: [userRole.value],
         avatar: fileName,
+        phone,
       });
       const token = generateAccessToken(user._id, user.roles);
       await user.save();
