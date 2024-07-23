@@ -14,7 +14,7 @@ orderRouter.post(
   authMiddleWaree,
   OrderController.createOrder
 );
-orderRouter.get("/", OrderController.getOrders);
+orderRouter.get("/", authMiddleWaree, OrderController.getOrders);
 orderRouter.put("/:id", OrderController.updateOrder);
 orderRouter.post("/status", OrderController.createStatus);
 orderRouter.get("/status", OrderController.getAllStatus);
