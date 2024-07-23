@@ -3,6 +3,7 @@ import productsRouter from "./products.js";
 import typeRouter from "./type.js";
 import userCartRouter from "./user-cart.js";
 import orderRouter from "./order.js";
+import deliverRouter from "./deliver.js";
 export const routers = [
   {
     path: "/api/auth",
@@ -23,5 +24,9 @@ export const routers = [
   {
     path: "/api/orders",
     router: orderRouter,
+  },
+  {
+    path: "/api/deliver",
+    router: deliverRouter,
   },
 ];

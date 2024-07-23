@@ -34,15 +34,6 @@ class OrderController {
   }
   async getOrders(req, res) {
     try {
-      const query = req.query;
-      if (query) {
-        const deliverId = req.user.id;
-        console.log(deliverId);
-        const orders = await Order.find({
-          ...query,
-        });
-        return res.json(orders);
-      }
       const orders = await Order.find();
       res.json(orders);
     } catch (e) {
