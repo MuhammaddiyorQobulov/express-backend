@@ -5,6 +5,15 @@ class UserCartController {
   async getCart(req, res) {
     const userId = req.user.id;
     const cart = await UserCart.findOne({ userId });
+    if (!cart) {
+      const userCart = new UserCart({
+        userId,
+        products: [],
+        total: 0,
+      });
+      await userCart.save();
+      return res.json(userCart);
+    }
     res.json(cart);
   }
 
