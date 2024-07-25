@@ -124,6 +124,48 @@ class AuthController {
       res.status(404).json({ message: "User not found" });
     }
   }
+  async UpdateProfile(req, res) {
+    try {
+      const user = await User.findById(req.user.id);
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ message: "Profile edit error", errors });
+      }
+      const { username, phone, password, confirm, oldPassword } = req.body;
+
+      const condidate = await User.findOne({ username });
+      if (condidate && condidate._id.toString() !== user._id.toString()) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+      const validPassword = bcrypt.compareSync(oldPassword, user.password);
+      if (!validPassword) {
+        return res.status(400).json({ message: "Wrong password" });
+      }
+      if (password !== confirm) {
+        return res.status(400).json({ message: "Passwords are not equal" });
+      }
+      if (!confirm) {
+        return res
+          .status(400)
+          .json({ message: "Please confirm your password" });
+      }
+      const hashPassword = bcrypt.hashSync(password, 7);
+
+      const fileName = req.files ? fileService.saveFile(req.files.avatar) : "";
+      const newUser = await User.findByIdAndUpdate(req.user.id, {
+        roles: user.roles,
+        username,
+        phone,
+        password: hashPassword,
+        avatar: fileName.length ? fileName : user.avatar,
+      });
+      res.json(newUser);
+    } catch (e) {
+      console.log(e.message);
+      res.status(404).json({ message: "Password edit error" });
+    }
+  }
 }
 
 export default new AuthController();

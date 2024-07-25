@@ -43,4 +43,5 @@ authRouter.put(
   roleMiddleWaree(["ADMIN"]),
   AuthController.UpdateUser
 );
+authRouter.put("/profile", authMiddleWaree, AuthController.UpdateProfile);
 export default authRouter;
